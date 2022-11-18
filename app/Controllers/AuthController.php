@@ -54,6 +54,12 @@ class AuthController extends BaseController
                     'is_unique' => 'NIK sudah terdaftar',
                 ],
             ],
+            'role' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Role harus diisi'
+                ],
+            ],
             'password' => [
                 'rules' => 'required|min_length[8]',
                 'errors' => [
@@ -79,11 +85,13 @@ class AuthController extends BaseController
             $username = $this->request->getPost('username');
             $fullname = $this->request->getPost('fullname');
             $nik = $this->request->getPost('nik');
+            $role = $this->request->getPost('role');
             $password = $this->request->getPost('password');
             $user = [
                 'username' => $username,
                 'fullname' => $fullname,
                 'nik'      => $nik,
+                'role'     => $role,
                 'password' => Hash::make($password),
             ];
 

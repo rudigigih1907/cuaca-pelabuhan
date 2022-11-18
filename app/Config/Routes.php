@@ -72,7 +72,10 @@ $routes->get('/logout', 'AuthController::logout');
 $routes->get('/register', 'AuthController::register');
 $routes->post('/register', 'AuthController::create');
 
+// Routes Admin
 $routes->get('/admin', 'Admin::index');
+$routes->get('/admin/user/edit/(:num)', 'Admin::edit/$1');
+$routes->put('/admin/user/update/(:num)', 'Admin::update/$1');
 
 $routes->get('create-db', function () {
     $forge = \Config\Database::forge();

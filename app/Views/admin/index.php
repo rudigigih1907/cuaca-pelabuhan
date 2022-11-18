@@ -24,7 +24,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Data Tables User's List</h6>
                 </div>
                 <div class="col text-right">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-user-new-modal-lg">Tambah User</a>
+                    <a href="<?= base_url('register') ?>" type="button" class="btn btn-primary btn-sm">Tambah User</a>
                 </div>
             </div>
         </div>
@@ -51,9 +51,9 @@
                                 <td><?= $user->nik; ?></td>
                                 <td><?= $user->role; ?></td>
                                 <td>
-                                    <a href="<?= site_url('user/edit/' . $user->id) ?>" class=" btn btn-warning btn-sm">
+                                    <a href="<?= site_url('admin/user/edit/' . $user->id) ?>" class=" btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i></a>
-                                    <form action="<?= site_url('users' . $user->id) ?>" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data ?')">
+                                    <form action="<?= site_url('admin/user/' . $user->id) ?>" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data ?')">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button class="btn btn-danger btn-sm">
@@ -66,14 +66,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-</div>
-<!-- modal tambah user -->
-<div class="modal fade bd-user-new-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            ...
         </div>
     </div>
 </div>

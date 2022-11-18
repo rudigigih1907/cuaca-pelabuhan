@@ -1,4 +1,4 @@
-<?= $this->extend('auth/templates'); ?>
+<?= $this->extend('templates/index'); ?>
 
 <?= $this->Section('title'); ?>
 <title>Register</title>
@@ -6,6 +6,16 @@
 
 <?= $this->Section('content'); ?>
 <div class="container">
+    <div class="row p-0">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">User's List</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card o-hidden border-0 shadow-lg my-5">
@@ -15,7 +25,7 @@
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Register</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Tambah User</h1>
                                 </div>
                                 <form action="<?= base_url('register') ?>" method="post" class="user" autocomplete="off">
                                     <?= csrf_field() ?>
@@ -37,10 +47,17 @@
                                             <input type="text" name="fullname" id="fullname" class="form-control form-control-user" placeholder="Fullname" value="<?= set_value('fullname') ?>">
                                             <span class="text-danger"><?= isset($validation) ? display_error($validation, 'fullname') : '' ?></span>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <div class="col">
-                                            <label for="nik">No. Induk Karyawan</label>
-                                            <input type="text" name="nik" id="nik" class="form-control form-control-user" placeholder="No. Induk Karyawan" value="<?= set_value('nik') ?>">
-                                            <span class="text-danger"><?= isset($validation) ? display_error($validation, 'nik') : '' ?></span>
+                                            <label for="username">NIK</label>
+                                            <input type="text" name="nik" id="nik" class="form-control form-control-user" placeholder="No.induk Karyawan" value="<?= set_value('nik') ?>">
+                                            <span class="text-danger"><?= isset($validation) ? display_error($validation, 'role') : '' ?></span>
+                                        </div>
+                                        <div class="col">
+                                            <label for="role">Role</label>
+                                            <input type="text" name="role" id="role" class="form-control form-control-user" placeholder="Role" value="<?= set_value('role') ?>">
+                                            <span class="text-danger"><?= isset($validation) ? display_error($validation, 'role') : '' ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -53,6 +70,7 @@
                                             <span class="text-danger"><?= isset($validation) ? display_error($validation, 'cpassword') : '' ?></span>
                                         </div>
                                     </div>
+                                    <br />
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Register
                                     </button>
