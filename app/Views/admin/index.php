@@ -7,11 +7,8 @@
 <?= $this->Section('content') ?>
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Admin Page - User's List</h1>
-
     <div class="row p-0">
-        <div class="col col-sm-10">
+        <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -19,14 +16,17 @@
                 </ol>
             </nav>
         </div>
-        <div class="col text-right">
-            <a href="<?= base_url('register') ?>" type="button" class="btn btn-primary">Tambah User</a>
-        </div>
     </div>
-    <!-- DataTables User's List -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Tables User's List</h6>
+            <div class="row">
+                <div class="col mt-2">
+                    <h6 class="m-0 font-weight-bold text-primary">Data Tables User's List</h6>
+                </div>
+                <div class="col text-right">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-user-new-modal-lg">Tambah User</a>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -36,17 +36,45 @@
                             <th>#</th>
                             <th>Username</th>
                             <th>Fullname</th>
+                            <th>NIK</th>
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <?php $i = 1; ?>
+                        <?php foreach ($users as $user) : ?>
+                            <tr>
+                                <td><?= $i++ ?></td>
+                                <td><?= $user->username; ?></td>
+                                <td><?= $user->fullname; ?></td>
+                                <td><?= $user->nik; ?></td>
+                                <td><?= $user->role; ?></td>
+                                <td>
+                                    <a href="<?= site_url('user/edit/' . $user->id) ?>" class=" btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i></a>
+                                    <form action="<?= site_url('users' . $user->id) ?>" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data ?')">
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+</div>
+<!-- modal tambah user -->
+<div class="modal fade bd-user-new-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            ...
+        </div>
+    </div>
 </div>
 <?= $this->endSection(); ?>
