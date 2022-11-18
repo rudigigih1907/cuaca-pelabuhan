@@ -10,8 +10,8 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">User's List</li>
+                    <li class="breadcrumb-item"><a href="admin">User's List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">New User</li>
                 </ol>
             </nav>
         </div>
@@ -24,9 +24,6 @@
                     <div class="row">
                         <div class="col-lg">
                             <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Tambah User</h1>
-                                </div>
                                 <form action="<?= base_url('register') ?>" method="post" class="user" autocomplete="off">
                                     <?= csrf_field() ?>
                                     <?php if (!empty(session()->getFlashdata('error'))) : ?>
@@ -56,7 +53,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="role">Role</label>
-                                            <input type="text" name="role" id="role" class="form-control form-control-user" placeholder="Role" value="<?= set_value('role') ?>">
+                                            <input type="text" name="role" id="role" class="form-control form-control-user" placeholder="Admin atau User" value="<?= set_value('role') ?>">
                                             <span class="text-danger"><?= isset($validation) ? display_error($validation, 'role') : '' ?></span>
                                         </div>
                                     </div>
