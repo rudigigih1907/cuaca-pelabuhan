@@ -8,11 +8,20 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+    <?php if (session()->getFlashdata('error')) : ?>
+        <div class="alert alert-danger alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">x</button>
+                <b>Error</b>
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src='<?= base_url('sb-admin2/img/'. $userInfo->user_image)?>' alt="Username">
+                <img src='<?= base_url('sb-admin2/img/' . $userInfo->user_image) ?>' alt="Username">
             </div>
             <div class="col-md-8">
                 <div class="card-body">

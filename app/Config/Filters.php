@@ -10,7 +10,7 @@ use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 use \App\Filters\AuthCheckFilter;
 use \App\Filters\AlreadyLoggedinFilter;
-
+use \App\Filters\RoleFilter;
 class Filters extends BaseConfig
 {
     /**
@@ -27,7 +27,7 @@ class Filters extends BaseConfig
         'secureheaders'     => SecureHeaders::class,
         'AuthCheck'         => AuthCheckFilter::class,
         'AlreadyLoggedIn'   => AlreadyLoggedinFilter::class,
-
+        'Role'              => RoleFilter::class,
     ];
 
     /**
@@ -78,5 +78,6 @@ class Filters extends BaseConfig
         'cuaca/*','berkas', 'berkas/*','generate-pdf',
         'generate-pdf/*','register','register/*', 'admin', 'admin/*'
     ]],
-        'AlreadyLoggedIn' => ['after' => ['login']]];
+        'AlreadyLoggedIn' => ['after' => ['login']],
+    'Role' => ['before' => ['admin', 'admin/*']]];
 }

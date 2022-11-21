@@ -25,7 +25,9 @@ class RoleFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
+        if (session()->get('loggedRole') != 'Admin') {
+            return redirect()->to(site_url('/'))->with('error', 'Anda tidak memiliki akses!');
+        }
     }
 
     /**

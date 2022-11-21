@@ -137,7 +137,9 @@ class AuthController extends BaseController
                 return redirect()->to(site_url('/login'))->withInput();
             } else {
                 $user_id = $user_info->id;
+                $role = $user_info->role;
                 session()->set('loggedUser', $user_id);
+                session()->set('loggedRole', $role);
                 return redirect()->to(site_url('/'));
             }
         }
