@@ -37,19 +37,19 @@
                     </div>
                     <div class=" form-group col-md">
                         <label for="temp_min">Temp_Min</label>
-                        <input type="text" class="form-control" id="temp_min" value="<?= $cuaca->temp_min ?>" name="temp_min" onfocus="load()" readonly>
+                        <input type="text" class="form-control" id="temp_min" value="<?= $cuaca->temp_min ?>" name="temp_min" onfocus="load()">
                     </div>
                     <div class=" form-group col-md">
-                        <label for="temp_max">temp_max</label>
-                        <input type="text" class="form-control" id="temp_max" value="<?= $cuaca->temp_max ?>" name="temp_max" onfocus="load()" readonly>
+                        <label for="temp_max">Temp_max</label>
+                        <input type="text" class="form-control" id="temp_max" value="<?= $cuaca->temp_max ?>" name="temp_max" onfocus="load()">
                     </div>
                     <div class=" form-group col-md">
                         <label for="rh_min">Lembab Min</label>
-                        <input type="text" class="form-control" id="rh_min" name="rh_min" value="<?= $cuaca->rh_min ?>" onfocus="load()" readonly>
+                        <input type="text" class="form-control" id="rh_min" name="rh_min" value="<?= $cuaca->rh_min ?>" onfocus="load()">
                     </div>
                     <div class=" form-group col-md">
                         <label for="rh_max">Lembab max</label>
-                        <input type="text" class="form-control" id="rh_max" name="rh_max" value="<?= $cuaca->rh_max ?>" onfocus="load()" readonly>
+                        <input type="text" class="form-control" id="rh_max" name="rh_max" value="<?= $cuaca->rh_max ?>" onfocus="load()">
                     </div>
                 </div>
                 <div class="form-group">

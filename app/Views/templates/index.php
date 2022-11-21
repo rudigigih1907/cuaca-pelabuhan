@@ -35,12 +35,10 @@
         </div>
     </div>
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -59,27 +57,16 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
     <script src="<?= base_url('sb-admin2') ?>/tambahan/jquery/jquery.min.js"></script>
     <script src="<?= base_url('sb-admin2') ?>/tambahan/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
     <script src="<?= base_url('sb-admin2') ?>/tambahan/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
     <script src="<?= base_url('sb-admin2') ?>/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
     <script src="<?= base_url('sb-admin2') ?>/tambahan/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url('sb-admin2') ?>/tambahan/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
     <script src="<?= base_url('sb-admin2') ?>/js/demo/datatables-demo.js"></script>
-
     <script type="text/javascript" src="<?= base_url('moment') ?>/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="<?= base_url('tempusdominus-bootstrap-4') ?>/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- get data cuaca -->
     <script type="text/javascript">
         function pilih_data(name, issued, valid_from, valid_to, weather, temp_min, temp_max, rh_min, rh_max) {
             $("#name").val(name);
@@ -94,14 +81,12 @@
         }
     </script>
 
-    <!-- get data cuaca -->
     <script type="text/javascript">
         function upload(id_cuaca) {
             $("#id_cuaca").val(id_cuaca);
         }
     </script>
 
-    <!-- date time picker issued -->
     <script type="text/javascript">
         $(function() {
             $('#datetimepickerissued').datetimepicker({

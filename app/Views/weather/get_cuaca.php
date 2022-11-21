@@ -125,13 +125,13 @@
                                             <td><?= substr($value['issued'], 0, 16) ?></td>
                                             <td><?= substr($value['valid_from'], 0, 16) ?> - <?= substr($value['valid_to'], 0, 16) ?></td>
                                             <td><?= $value['weather']; ?></td>
-                                            <td><?= $value['temp_min']; ?> - <?= $value['temp_max']; ?></td>
-                                            <td><?= $value['rh_min']; ?> - <?= $value['rh_max']; ?></td>
+                                            <td><?= @$value['temp_min']; ?> - <?= @$value['temp_max']; ?></td>
+                                            <td><?= @$value['rh_min']; ?> - <?= @$value['rh_max']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-outline-primary mr-2" onclick="pilih_data('<?= $cuaca['name'] ?>', 
+                                                <button type="button" class="btn btn-outline-primary mr-2 btn-sm" onclick="pilih_data('<?= $cuaca['name'] ?>', 
                                     '<?= substr($value['issued'], 0, 16) ?>', '<?= substr($value['valid_from'], 0, 16) ?>', '<?= substr($value['valid_to'], 0, 16) ?>',
-                                    '<?= $value['weather'] ?>', '<?= $value['temp_min'] ?>', '<?= $value['temp_max'] ?>',
-                                    '<?= $value['rh_min'] ?>', '<?= $value['rh_max'] ?>')" data-dismiss="modal">Tampilkan</button>
+                                    '<?= $value['weather'] ?>', '<?= @$value['temp_min'] ?>', '<?= @$value['temp_max'] ?>',
+                                    '<?= @$value['rh_min'] ?>', '<?= @$value['rh_max'] ?>')" data-dismiss="modal">Tampilkan</button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
