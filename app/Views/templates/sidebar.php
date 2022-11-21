@@ -41,8 +41,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">User's</h6>
                     <a class="collapse-item" href="<?= base_url('admin') ?>">User's List</a>
-                    <a class="collapse-item" href="#">Group</a>
-                    <a class="collapse-item" href="#">Role</a>
                     <div class="collapse-divider"></div>
                 </div>
             </div>

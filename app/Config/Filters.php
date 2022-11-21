@@ -79,5 +79,5 @@ class Filters extends BaseConfig
         'generate-pdf/*','register','register/*', 'admin', 'admin/*'
     ]],
         'AlreadyLoggedIn' => ['after' => ['login']],
-    'Role' => ['before' => ['admin', 'admin/*']]];
+    'Role' => ['before' => ['admin', 'admin/*', 'register', 'register/*']]];
 }
