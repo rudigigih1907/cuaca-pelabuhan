@@ -52,6 +52,7 @@ class CuacaController extends BaseController
     public function create()
     {
         $data = $this->request->getPost();
+
         $this->cuaca->insert($data);
         return redirect()->to(site_url('cuaca'))->with('success', 'Data berhasil disimpan....!');
     }

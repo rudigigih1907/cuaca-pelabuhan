@@ -35,7 +35,7 @@
                         </div>
                         <div class="col">
                             <div class="copyright text-right my-auto">
-                                <span>Sumber : <a href="https://www.bmkg.go.id/">BMKG</a> dan <a href="https://peta-maritim.bmkg.go.id/public_api/pelabuhan">PETA MARITIM BMKG</a></span>
+                                <span>Sumber : <a href="https://www.bmkg.go.id/" target="_blank">BMKG</a> dan <a target="_blank" href="https://peta-maritim.bmkg.go.id/public_api/pelabuhan">PETA MARITIM BMKG</a></span>
                             </div>
                         </div>
                     </div>

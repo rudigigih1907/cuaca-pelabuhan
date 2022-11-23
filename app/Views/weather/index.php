@@ -74,13 +74,13 @@
                                 <td class="align-middle"><?= $value->name; ?></td>
                                 <td class="align-middle">
                                     <?php $rilis = $value->issued;
-                                    echo date("d/M/Y H:i:s", strtotime($rilis)); ?>
+                                    echo date("d/M/Y H:i", strtotime($rilis)); ?>
                                 </td>
                                 <td width=19%>
                                     <?php $validFrom = $value->valid_from;
-                                    echo date("d/M/Y H:i:s", strtotime($validFrom)); ?> -
+                                    echo date("d/M/Y H:i", strtotime($validFrom)); ?> -
                                     <?php $validTo = $value->valid_to;
-                                    echo date("d/M/Y H:i:s", strtotime($validTo)); ?>
+                                    echo date("d/M/Y H:i", strtotime($validTo)); ?>
                                 </td>
                                 <td class="align-middle"><?= $value->weather; ?></td>
                                 <td class="text-center align-middle"><?= $value->temp_min; ?> - <?= $value->temp_max; ?></td>

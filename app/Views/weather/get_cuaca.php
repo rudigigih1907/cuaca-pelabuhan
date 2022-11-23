@@ -122,16 +122,29 @@
                                         <tr>
                                             <td><?= $i++ ?></td>
                                             <td><?= $cuaca['name']; ?></td>
-                                            <td><?= substr($value['issued'], 0, 16) ?></td>
-                                            <td><?= substr($value['valid_from'], 0, 16) ?> - <?= substr($value['valid_to'], 0, 16) ?></td>
+                                            <td><?php $sub_issued = substr($value['issued'], 0, 16);
+                                                echo waktu_UTC($sub_issued) ?></td>
+                                            <td><?php $sub_vFrom = substr($value['valid_from'], 0, 16);
+                                                echo waktu_UTC($sub_vFrom) ?>
+                                                - <?php $sub_vTo = substr($value['valid_to'], 0, 16);
+                                                    echo waktu_UTC($sub_vTo) ?>
+                                            </td>
                                             <td><?= $value['weather']; ?></td>
                                             <td><?= @$value['temp_min']; ?> - <?= @$value['temp_max']; ?></td>
                                             <td><?= @$value['rh_min']; ?> - <?= @$value['rh_max']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-outline-primary mr-2 btn-sm" onclick="pilih_data('<?= $cuaca['name'] ?>', 
-                                    '<?= substr($value['issued'], 0, 16) ?>', '<?= substr($value['valid_from'], 0, 16) ?>', '<?= substr($value['valid_to'], 0, 16) ?>',
-                                    '<?= $value['weather'] ?>', '<?= @$value['temp_min'] ?>', '<?= @$value['temp_max'] ?>',
-                                    '<?= @$value['rh_min'] ?>', '<?= @$value['rh_max'] ?>')" data-dismiss="modal">Tampilkan</button>
+                                                <button type="button" class="btn btn-outline-primary mr-2 btn-sm" onclick="pilih_data('<?= $cuaca['name'] ?>',
+                                                '<?php $sub_issued = substr($value['issued'], 0, 16);
+                                                    echo waktu_UTC($sub_issued) ?>', 
+                                                '<?php $sub_vFrom = substr($value['valid_from'], 0, 16);
+                                                    echo waktu_UTC($sub_vFrom) ?>', 
+                                                '<?php $sub_vTo = substr($value['valid_to'], 0, 16);
+                                                    echo waktu_UTC($sub_vTo) ?>', 
+                                                '<?= $value['weather'] ?>', 
+                                                '<?= @$value['temp_min'] ?>', 
+                                                '<?= @$value['temp_max'] ?>', 
+                                                '<?= @$value['rh_min'] ?>', 
+                                                '<?= @$value['rh_max'] ?>')" data-dismiss="modal">Tampilkan</button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

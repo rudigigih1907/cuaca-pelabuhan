@@ -70,7 +70,7 @@
                                 <td><?= $value->name; ?></td>
                                 <td><?= $value->keterangan; ?></td>
                                 <td width=19% class="text-center">
-                                    <a class="btn btn-primary btn-sm" href="<?= site_url('berkas/downloads/' . $value->id_berkas) ?>"><i class="fas fa-download"></i> Download</a>
+                                    <a target="_blank" class="btn btn-primary btn-sm" href="<?= site_url('berkas/downloads/' . $value->id_berkas) ?>"><i class="fas fa-download"></i> Download</a>
                                     <form action="<?= site_url('berkas/delete/' . $value->id_berkas) ?>" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data ?')">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="_method" value="DELETE"> 
