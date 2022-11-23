@@ -27,9 +27,19 @@
             </div>
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; PT. Tresnamuda Sejati <?= date('Y') ?></span>
+                    <div class="row">
+                        <div class="col">
+                            <div class="copyright text-left my-auto">
+                                <span>Copyright &copy; PT. Tresnamuda Sejati <?= date('Y') ?></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="copyright text-right my-auto">
+                                <span>Sumber : <a href="https://www.bmkg.go.id/">BMKG</a> dan <a href="https://peta-maritim.bmkg.go.id/public_api/pelabuhan">PETA MARITIM BMKG</a></span>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </footer>
         </div>
@@ -43,7 +53,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
