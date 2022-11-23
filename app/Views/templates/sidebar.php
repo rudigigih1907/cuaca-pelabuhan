@@ -60,9 +60,11 @@
 
     <hr class="sidebar-divider">
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('logout') ?>">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span></a>
+            <span>Logout</span>
+
+        </a>
     </li>
 
     <hr class="sidebar-divider">
