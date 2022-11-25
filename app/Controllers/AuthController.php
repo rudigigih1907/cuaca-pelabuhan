@@ -104,6 +104,43 @@ class AuthController extends BaseController
         }
     }
 
+    public function changePassword($id)
+    {
+        $validation = $this->validate([
+            'old_password' => [
+                'rules' => 'required|is_not_unique[users.password]',
+                'errors' => [
+                    'required' => 'Username harus diisi',
+                    'is_not_unique' => 'Password tidak sama'
+                ]
+            ],
+            'new_password' => [
+                'rules' => 'required|min_length[8]',
+                'errors' => [
+                    'required' => 'Password harus diisi',
+                    'min_length' => 'Password minimal 8 Karakter'
+                ]
+            ]
+        ]);
+
+        if (!$validation) {
+            return redirect()->back()->with('error', 'Gagal Ganti Password');
+        } else {
+            //Cek Password
+            $old_password = $this->request->getPost('old_password');
+            $new_password = $this->request->getPost('new_password');
+            $password_info = $this->users->where('password', $old_password)->first();
+            $password_check = Hash::check($old_password, $password_info->password);
+
+            if (!$password_check) {
+                session()->setFlashdata('error', 'password salah');
+                return redirect()->back();
+            } else {
+                
+            }
+        }
+    }
+
     public function check()
     {
         $validation = $this->validate([

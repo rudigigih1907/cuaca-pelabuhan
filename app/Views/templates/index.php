@@ -66,6 +66,43 @@
         </div>
     </div>
 
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form action="<?= base_url('chpassword/' . userLogin()->id) ?>" method="post" autocomplete="off">
+                            <?= csrf_field() ?>
+                            <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                                <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+                            <?php endif; ?>
+                            <div class="form-group">
+                                <label for="old_password">Old Password</label>
+                                <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Old Password">
+                                <span class="text-danger"><?= isset($validation) ? display_error($validation, 'old_password') : '' ?></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="new_password">New Password</label>
+                                <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password">
+                                <span class="text-danger"><?= isset($validation) ? display_error($validation, 'new_password') : '' ?></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="<?= base_url('sb-admin2') ?>/tambahan/jquery/jquery.min.js"></script>
     <script src="<?= base_url('sb-admin2') ?>/tambahan/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url('sb-admin2') ?>/tambahan/jquery-easing/jquery.easing.min.js"></script>

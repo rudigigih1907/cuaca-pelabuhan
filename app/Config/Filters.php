@@ -73,11 +73,10 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $filters = ['AuthCheck' => ['before' => [
-        '/','pelabuhan','pelabuhan/*','cuaca',
+    public $filters = [
+        'AuthCheck' => ['before' => ['/','pelabuhan','pelabuhan/*','cuaca',
         'cuaca/*','berkas', 'berkas/*','generate-pdf',
-        'generate-pdf/*','register','register/*', 'admin', 'admin/*'
-    ]],
+        'generate-pdf/*','register','register/*', 'admin', 'admin/*']],
         'AlreadyLoggedIn' => ['after' => ['login']],
-    'Role' => ['before' => ['admin', 'admin/*', 'register', 'register/*']]];
+        'Role' => ['before' => ['admin', 'admin/*', 'register', 'register/*', 'pelabuhan/*']]];
 }

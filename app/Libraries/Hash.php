@@ -16,6 +16,12 @@ class Hash
             return false;
         }
     }
+
+    public static function defaultPassword()
+    {
+        $default_password = '11235813';
+        return password_hash($default_password, PASSWORD_BCRYPT);
+    }
 }
 
 ?>

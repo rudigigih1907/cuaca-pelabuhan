@@ -45,12 +45,12 @@
                         <?php $i = 1; ?>
                         <?php foreach ($users as $user) : ?>
                             <tr>
-                                <td><?= $i++ ?></td>
+                                <td width=5%><?= $i++ ?></td>
                                 <td><?= $user->username; ?></td>
                                 <td><?= $user->fullname; ?></td>
                                 <td><?= $user->nik; ?></td>
                                 <td><?= $user->role; ?></td>
-                                <td>
+                                <td width=10% class="text-center">
                                     <a href="<?= site_url('admin/user/edit/' . $user->id) ?>" class=" btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i></a>
                                     <form action="<?= site_url('admin/user/' . $user->id) ?>" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data ?')">
