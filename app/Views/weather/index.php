@@ -41,7 +41,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="row">
+            <div class="row text-nowrap">
                 <div class="col-8">
                     <h6 class="mt-2 font-weight-bold text-primary">DOKUMENTASI CUACA PELABUHAN DI INDONESIA</h6>
                 </div>
@@ -85,7 +85,7 @@
                                 <td class="align-middle"><?= $value->weather; ?></td>
                                 <td class="text-center align-middle"><?= $value->temp_min; ?> - <?= $value->temp_max; ?></td>
                                 <td class="text-center align-middle"><?= $value->rh_min; ?> - <?= $value->rh_max; ?></td>
-                                <td class="text-center align-middle" width=13%>
+                                <td class="text-center align-middle text-nowrap" width=13%>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-folder"></i></button>
                                         <div class="dropdown-menu">

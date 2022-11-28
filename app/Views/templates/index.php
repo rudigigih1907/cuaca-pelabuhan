@@ -84,12 +84,12 @@
                             <?php endif; ?>
                             <div class="form-group">
                                 <label for="old_password">Old Password</label>
-                                <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Old Password">
+                                <input type="password" class="form-control" id="old_password" name="old_password" autocomplete="off" placeholder="Old Password">
                                 <span class="text-danger"><?= isset($validation) ? display_error($validation, 'old_password') : '' ?></span>
                             </div>
                             <div class="form-group">
                                 <label for="new_password">New Password</label>
-                                <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password">
+                                <input type="password" class="form-control" id="new_password" name="new_password" autocomplete="off" placeholder="New Password">
                                 <span class="text-danger"><?= isset($validation) ? display_error($validation, 'new_password') : '' ?></span>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
