@@ -172,6 +172,33 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepickerreportbulanan').datetimepicker({
+                format: 'YYYY-MM',
+                locale: 'id'
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepickerminggu1').datetimepicker({
+                format: 'DD-MM-YYYY',
+                locale: 'id'
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepickerminggu2').datetimepicker({
+                format: 'DD-MM-YYYY',
+                locale: 'id'
+            });
+        });
+    </script>
 </body>
 
 </html>

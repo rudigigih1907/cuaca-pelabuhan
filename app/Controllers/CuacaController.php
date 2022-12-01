@@ -118,19 +118,33 @@ class CuacaController extends BaseController
     public function generate_pdf($id = null)
     {
         $data['cuaca'] = $this->cuaca->where('id_cuaca', $id)->first();
-        $data['user'] = session()->get('loggedUser');
         $view = view('weather/generate-pdf', $data);
-        // instantiate and use the dompdf class
         $dompdf = new Dompdf();
         $dompdf->loadHtml($view);
-
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'potrait');
-
-        // Render the HTML as PDF
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-
-        // Output the generated PDF to Browser
         $dompdf->stream('laporan-cuaca', array("Attachment" => false));
+    }
+
+    public function reportBulanan()
+    {
+        $report = $this->request->getGet('reportBulanan');
+        $waktu = date('F Y', strtotime($report));
+        $data['reports'] = $this->cuaca->like('issued', $report)->findAll();
+        if ($data['reports'] == null) {
+            return redirect()->to(site_url('cuaca'))->with('error', 'Tidak ada data pada bulan '.$waktu);
+        }
+        $view = view('weather/report', $data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($view);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream('Laporan Cuaca Pelabuhan dari BMKG '. $waktu, array("Attachment" => false));
+    }
+
+    public function reportPeriode()
+    {
+        $reportd = $this->request->getGet('reportPeriodedari');
+        $reportk = $this->request->getGet('reportPeriodesampai');
     }
 }

@@ -60,8 +60,10 @@ $routes->post('/berkas/upload', 'BerkasController::upload');
 $routes->get('/berkas/downloads/(:num)', 'BerkasController::downloads/$1');
 $routes->delete('/berkas/delete/(:num)', 'BerkasController::delete/$1');
 
-//Routes Generate PDF
+//Routes Report
 $routes->get('/generate-pdf/(:num)', 'CuacaController::generate_pdf/$1');
+// $routes->post('/report-bulanan', 'CuacaController::reportBulanan');
+$routes->match(['get', 'post'], 'report-bulanan', 'CuacaController::reportBulanan');
 
 // Routes Login
 $routes->get('/login', 'AuthController::login');

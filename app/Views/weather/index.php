@@ -41,8 +41,8 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="row text-nowrap">
-                <div class="col-8">
+            <div class="row">
+                <div class="col-8 text-nowrap">
                     <h6 class="mt-2 font-weight-bold text-primary">DOKUMENTASI CUACA PELABUHAN DI INDONESIA</h6>
                 </div>
                 <div class="col text-right">
@@ -52,6 +52,17 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">Report</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" data-toggle="modal" data-target=".bd-report-periode-modal-lg" type="button" href="#"><i class="fas fa-print"></i> Periode</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target=".bd-report-bulanan-modal-lg" href="#"><i class="fas fa-print"></i> Bulanan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -239,6 +250,84 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Report Periode -->
+<div class="modal fade bd-report-periode-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report Periode</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('report-periode') ?>">
+                    <?= csrf_field() ?>
+                    <div class="container">
+                        <div class='col'>
+                            <div class="form-group">
+                                <div class="input-group date" id="datetimepickerminggu1" data-target-input="nearest">
+                                    <div class="input-group-append" data-target="#datetimepickerminggu1" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                    <input type="text" id="reportPeriodedari" name="reportPeriodedari" class="form-control datetimepicker-input" data-target="#datetimepickerminggu1" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="form-group">
+                                <div class="input-group date" id="datetimepickerminggu2" data-target-input="nearest">
+                                    <div class="input-group-append" data-target="#datetimepickerminggu2" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                    <input type="text" id="reportPeriodesampai" name="reportPeriodesampai" class="form-control datetimepicker-input" data-target="#datetimepickerminggu2" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Report Bulanan -->
+<div class="modal fade bd-report-bulanan-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report Bulanan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('report-bulanan') ?>" target="_blank" method="GET">
+
+                    <div class="form-group col-md">
+                        <label for="reportBulanan">Pilih Periode Bulan</label>
+                        <div class="input-group date" id="datetimepickerreportbulanan" data-target-input="nearest">
+                            <div class="input-group-append" data-target="#datetimepickerreportbulanan" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fas fa-calendar"></i></div>
+                            </div>
+                            <input type="text" id="reportBulanan" name="reportBulanan" class="form-control datetimepicker-input" data-target="#datetimepickerreportbulanan" />
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

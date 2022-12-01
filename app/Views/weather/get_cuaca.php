@@ -20,7 +20,7 @@
 
     <div class="card shadow">
         <div class="card-header h-1">
-            <div class="row">
+            <div class="row text-nowrap">
                 <div class="col-8">
                     <h6 class="m-2 font-weight-bold text-primary">Simpan Data Cuaca Pelabuhan <?= $cuaca['name']; ?></h6>
                 </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body text-nowrap">
             <div>
                 <form action="<?= site_url('cuaca') ?>" method="POST">
                     <?= csrf_field() ?>
@@ -122,10 +122,10 @@
                                         <tr>
                                             <td><?= $i++ ?></td>
                                             <td><?= $cuaca['name']; ?></td>
-                                            <td><?php $sub_issued = substr($value['issued'], 0, 16);
-                                                echo waktu_UTC($sub_issued) ?></td>
-                                            <td><?php $sub_vFrom = substr($value['valid_from'], 0, 16);
-                                                echo waktu_UTC($sub_vFrom) ?>
+                                            <td class="text-nowrap"><?php $sub_issued = substr($value['issued'], 0, 16);
+                                                                    echo waktu_UTC($sub_issued) ?></td>
+                                            <td class="text-nowrap"><?php $sub_vFrom = substr($value['valid_from'], 0, 16);
+                                                                    echo waktu_UTC($sub_vFrom) ?>
                                                 - <?php $sub_vTo = substr($value['valid_to'], 0, 16);
                                                     echo waktu_UTC($sub_vTo) ?>
                                             </td>

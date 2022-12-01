@@ -50,7 +50,7 @@
                 <?php endif; ?>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body text-nowrap">
             <div class="table-responsive">
                 <table class="table table-bordered text-nowrap" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -66,7 +66,7 @@
                             <tr>
                                 <td width=6%><?= $i++ ?></td>
                                 <td><?= $pelabuhan->nama_pelabuhan; ?></td>
-                                <td width=17% class="text-center">
+                                <td width=17% class="text-center text-nowrap">
                                     <a href="<?= site_url('cuaca/get-cuaca/' . $pelabuhan->id_pelabuhan) ?>" class="btn btn-sm btn-outline-primary mr-2 center-block">Cek Cuaca</a>
                                     <?php if (userLogin()->role == 'Admin') : ?>
                                         <a href="<?= site_url('pelabuhan/edit/' . $pelabuhan->id_pelabuhan) ?>" class=" btn btn-warning btn-sm">

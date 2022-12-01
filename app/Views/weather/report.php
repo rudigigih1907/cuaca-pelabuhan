@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Laporan Cuaca <?= $cuaca->name ?>/<?= $cuaca->valid_from ?>-<?= $cuaca->valid_to ?> </title>
+    <title>Laporan Prakiraan Cuaca Pelabuhan Bulan <?php $data = $reports[0]->issued;
+    echo date('F Y', strtotime($data)) ?></title>
 
     <style type="text/css">
         * {
@@ -36,43 +37,50 @@
         <tr>
             <td width=17%>Dibuat Tanggal</td>
             <td width=3%>:</td>
-            <td><?= date('d F Y H:i:s') ?></td>
+            <td><?= date('d F Y H:i') ?></td>
         </tr>
         <tr>
             <td>Dibuat Oleh</td>
             <td>:</td>
             <td><?= userLogin()->fullname ?></td>
         </tr>
+        <tr>
+            <td>Bulan</td>
+            <td>:</td>
+            <td><?php $data = $reports[0]->issued;echo date('F Y', strtotime($data)) ?></td>
+        </tr>
     </table>
     <br />
     <br />
 
     <table width="100%">
-        <tr>
-            <td><strong>Pelabuhan : </strong><?= $cuaca->name; ?></td>
-            <td align="right"><strong>Waktu Prakiraan Cuaca : </strong>
-                <?php $validFrom = $cuaca->valid_from;
-                echo date("d M Y H:i", strtotime($validFrom)); ?> -
-                <?php $validTo = $cuaca->valid_to;
-                echo date("d M Y H:i", strtotime($validTo)); ?>
-            </td>
-        </tr>
-    </table>
-    <br />
-    <table width="100%">
         <thead style="background-color: lightgray;">
             <tr>
-                <th>Kondisi Cuaca</th>
-                <th>Suhu &deg;C</th>
-                <th>Kelembapan %</th>
+                <th>#</th>
+                <th>Pelabuhan</th>
+                <th>Tanggal Rilis</th>
+                <th>Berlaku</th>
+                <th>Cuaca</th>
+                <th>Temp &deg;C</th>
+                <th>Lembab %</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td align="center" width=30%><?= $cuaca->weather; ?></td>
-                <td align="center"><?= $cuaca->temp_min; ?> - <?= $cuaca->temp_max; ?></td>
-                <td align="center"><?= $cuaca->rh_min; ?> - <?= $cuaca->rh_max; ?></td>
-            </tr>
+            <?php $i = 1 ?>
+            <?php foreach ($reports as $report) : ?>
+                <tr>
+                    <td><?= $i++; ?></td>
+                    <td align="center"><?= $report->name; ?></td>
+                    <td align="center"><?php $r_issued = $report->issued;
+                    echo date('d H:i', strtotime($r_issued)) ?></td>
+                    <td align="center"><?php $r_validf = $report->valid_from;
+                    echo date('d H:i', strtotime($r_validf)) ?> - <?php $r_validt = $report->valid_to;
+                    echo date('d H:i', strtotime($r_validt)) ?></td>
+                    <td align="center"><?= $report->weather; ?></td>
+                    <td align="center"><?= $report->temp_min; ?> - <?= $report->temp_max; ?></td>
+                    <td align="center"><?= $report->rh_min; ?> - <?= $report->rh_max; ?></td>
+                </tr>
+            <?php endforeach ?>
         </tbody>
     </table>
 
