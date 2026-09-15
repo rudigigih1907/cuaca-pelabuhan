@@ -24,29 +24,47 @@ class CuacaController extends BaseController
 
     public function get_cuaca($id = null)
     {
-        if ($id != null) {
-            $dataPelabuhan = $this->pelabuhan->getWhere(['id_pelabuhan' => $id]);
-            if ($dataPelabuhan->resultID->num_rows > 0) {
-                $cuaca = $dataPelabuhan->getRow('link_api');
-
-                //inisialisasi fungsi curl
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $cuaca);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                $content = curl_exec($ch);
-                curl_close($ch);
-                
-                $data['title'] = 'Prakiraan Cuaca';
-
-                //mengubah data json menjadi data array asosiatif
-                $data['cuaca'] = json_decode($content, true);
-                return view('weather/get_cuaca', $data);
-            } else {
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-            }
-        } else {
+        if ($id === null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+
+        $dataPelabuhan = $this->pelabuhan->getWhere(['id_pelabuhan' => $id]);
+
+        if ($dataPelabuhan->resultID->num_rows === 0) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $linkApi = $dataPelabuhan->getRow('link_api');
+
+        // 1. Inisialisasi cURL dengan User-Agent & SSL Bypass agar tidak diganggu firewall/SSL BMKG
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $linkApi);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // set timeout 10 detik
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // cegah error sertifikat SSL
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)');
+
+        $content = curl_exec($ch);
+        $curlError = curl_error($ch);
+        curl_close($ch);
+
+        // 2. Decode JSON
+        $cuacaData = json_decode($content, true);
+
+        // 3. Validasi jika cURL error / JSON null / struktur data tidak valid
+        if ($content === false || !is_array($cuacaData)) {
+            // Beri fallback array default agar View tidak error (Trying to access array offset on value of type null)
+            $cuacaData = [
+                'name' => $dataPelabuhan->getRow('nama_pelabuhan') ?? 'Pelabuhan (Data API BMKG Gagal Dimuat)',
+                'data' => []
+            ];
+        }
+
+        $data['title'] = 'Prakiraan Cuaca';
+        $data['cuaca'] = $cuacaData;
+
+        return view('weather/get_cuaca', $data);
     }
 
     public function create()
@@ -132,14 +150,14 @@ class CuacaController extends BaseController
         $waktu = date('F Y', strtotime($report));
         $data['reports'] = $this->cuaca->like('issued', $report)->findAll();
         if ($data['reports'] == null) {
-            return redirect()->to(site_url('cuaca'))->with('error', 'Tidak ada data pada bulan '.$waktu);
+            return redirect()->to(site_url('cuaca'))->with('error', 'Tidak ada data pada bulan ' . $waktu);
         }
         $view = view('weather/report', $data);
         $dompdf = new Dompdf();
         $dompdf->loadHtml($view);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $dompdf->stream('Laporan Cuaca Pelabuhan dari BMKG '. $waktu, array("Attachment" => false));
+        $dompdf->stream('Laporan Cuaca Pelabuhan dari BMKG ' . $waktu, array("Attachment" => false));
     }
 
     public function reportPeriode()
