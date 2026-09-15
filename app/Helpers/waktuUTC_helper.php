@@ -7,7 +7,7 @@ function waktu_UTC($tanggal)
         new DateTimeZone('UTC')
     );
 
-    $utc_date->setTimezone(new DateTimeZone('Asia/Jakarta'));
+    $utc_date->setTimezone(new DateTimeZone('UTC'));
     $utc = $utc_date->format('Y-m-d H:i');
     return $utc;
 }

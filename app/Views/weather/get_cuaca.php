@@ -12,7 +12,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="pelabuhan">Pelabuhan</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Cuaca Pelabuhan <?= $cuaca['name']; ?></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cuaca Pelabuhan <?= $cuaca['name'] ?? '-'; ?></li>
                 </ol>
             </nav>
         </div>
