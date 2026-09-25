@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: ci4_app
+    container_name: ${APP_NAME}
     restart: always
     volumes:
       - .:/var/www/html
@@ -12,9 +12,9 @@ services:
       - ci4_network
 
   # Web Server (Nginx)
-  webserver:
-    image: nginx:alpine
-    container_name: ci4_webserver
+  nginx:
+    image: nginx:alpine3.24
+    container_name: ${APP_NAME}-nginx
     restart: always
     ports:
       - "8080:80"
@@ -29,7 +29,7 @@ services:
   # Database (MySQL 8.0 / 5.7)
   db:
     image: mysql:8.0
-    container_name: ci4_db
+    container_name: ${APP_NAME}-db
     restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -45,8 +45,8 @@ services:
 
   # Database Management (Adminer)
   adminer:
-    image: adminer:latest
-    container_name: ci4_adminer
+    image: adminer:6.1.0
+    container_name: ${APP_NAME}-adminer
     restart: always
     ports:
       - "8081:8080"
