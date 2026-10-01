@@ -25,7 +25,9 @@ class AlreadyLoggedinFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
+        if (session()->has('loggedUser')) {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -42,8 +44,6 @@ class AlreadyLoggedinFilter implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        if (session()->has('loggedUser')) {
-            return redirect()->back();
-        }
+        //
     }
 }
