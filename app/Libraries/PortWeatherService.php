@@ -190,4 +190,40 @@ class PortWeatherService
 
         return $weathers;
     }
+
+    /**
+     * Sinkronisasi beberapa pelabuhan terpilih
+     */
+    public function syncMultiplePorts(array $codes): array
+    {
+        $successCount = 0;
+        $totalRecords = 0;
+
+        foreach ($codes as $code) {
+            try {
+                $saved = $this->fetchAndSaveWeather($code);
+                if ($saved > 0) {
+                    $successCount++;
+                    $totalRecords += $saved;
+                }
+            } catch (\Throwable $e) {
+                log_message('error', "Gagal sync cuaca pelabuhan {$code}: " . $e->getMessage());
+            }
+        }
+
+        return [
+            'success_ports' => $successCount,
+            'total_records' => $totalRecords,
+        ];
+    }
+
+    /**
+     * Toggle status is_monitored
+     */
+    public function toggleMonitoringStatus(string $code, int $status): bool
+    {
+        return (bool) $this->portModel->where('code', $code)
+            ->set(['is_monitored' => $status ? 1 : 0])
+            ->update();
+    }
 }

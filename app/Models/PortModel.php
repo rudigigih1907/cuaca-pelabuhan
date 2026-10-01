@@ -14,7 +14,7 @@ class PortModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['code', 'name', 'province'];
+    protected $allowedFields    = ['code', 'name', 'province', 'is_monitored'];
 
     // Dates
     protected $useTimestamps = true;
