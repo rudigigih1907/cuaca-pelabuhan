@@ -7,6 +7,7 @@ use App\Models\UsersModel;
 
 class Admin extends BaseController
 {
+    protected $users;
     public function __construct()
     {
         $this->users = new UsersModel();

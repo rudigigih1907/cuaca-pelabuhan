@@ -7,6 +7,7 @@ use App\Models\PelabuhanModel;
 
 class PelabuhanController extends BaseController
 {
+    protected $pelabuhan;
     public function __construct()
     {
         $this->pelabuhan = new PelabuhanModel();

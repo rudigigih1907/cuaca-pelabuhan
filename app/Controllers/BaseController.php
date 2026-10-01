@@ -22,6 +22,7 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
+    protected $db;
     /**
      * Instance of the main Request object.
      *

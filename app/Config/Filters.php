@@ -76,7 +76,7 @@ class Filters extends BaseConfig
     public $filters = [
         'AuthCheck' => ['before' => ['/','pelabuhan','pelabuhan/*','cuaca',
         'cuaca/*','berkas', 'berkas/*','generate-pdf',
-        'generate-pdf/*','register','register/*', 'admin', 'admin/*']],
-        'AlreadyLoggedIn' => ['after' => ['login']],
-        'Role' => ['before' => ['admin', 'admin/*', 'register', 'register/*', 'pelabuhan/*']]];
+        'generate-pdf/*','register','register/*', 'admin', 'admin/*','ports/','ports/*', 'dashboard/']],
+        'AlreadyLoggedIn' => ['before' => ['login', 'login/*']],
+        'Role' => ['before' => ['admin', 'admin/*', 'register', 'register/*', 'pelabuhan/*', 'dashboard', 'dashboard/*']]];
 }

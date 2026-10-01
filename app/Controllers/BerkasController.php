@@ -7,6 +7,10 @@ use App\Models\BerkasModel;
 
 class BerkasController extends BaseController
 {
+    protected $berkas;
+    protected $db;
+    protected $builder;
+    
     public function __construct()
     {
         $this->berkas = new BerkasModel();
