@@ -130,4 +130,40 @@ class PortController extends BaseController
             'message' => 'Gagal mengubah status di database.',
         ])->setStatusCode(500);
     }
+
+    public function exportWeatherExcel(string $code)
+    {
+        $port = $this->portModel->where('code', $code)->first();
+        if (!$port) {
+            return redirect()->to('/ports')->with('error', "Pelabuhan dengan kode {$code} tidak ditemukan.");
+        }
+
+        $startDate = $this->request->getGet('start_date');
+        $endDate   = $this->request->getGet('end_date');
+
+        $weathers = $this->weatherService->getWeatherForecast($code, $startDate, $endDate);
+        if (empty($weathers)) {
+            return redirect()->back()->with('error', 'Tidak ada data cuaca untuk diekspor.');
+        }
+
+        $this->exportService->exportExcel($port, $weathers, $startDate, $endDate);
+    }
+
+    public function exportWeatherPdf(string $code)
+    {
+        $port = $this->portModel->where('code', $code)->first();
+        if (!$port) {
+            return redirect()->to('/ports')->with('error', "Pelabuhan dengan kode {$code} tidak ditemukan.");
+        }
+
+        $startDate = $this->request->getGet('start_date');
+        $endDate   = $this->request->getGet('end_date');
+
+        $weathers = $this->weatherService->getWeatherForecast($code, $startDate, $endDate);
+        if (empty($weathers)) {
+            return redirect()->back()->with('error', 'Tidak ada data cuaca untuk diekspor.');
+        }
+
+        $this->exportService->exportPdf($port, $weathers, $startDate, $endDate);
+    }
 }
