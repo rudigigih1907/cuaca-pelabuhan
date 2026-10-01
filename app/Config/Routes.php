@@ -3,6 +3,8 @@
 namespace Config;
 
 use App\Controllers\DashboardController;
+use App\Controllers\User;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -38,6 +40,13 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 $routes->get('/', 'User::index');
+$routes->get('/home', 'Home::index');
+$routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
+    // Profil Pengguna
+    $routes->get('user', [User::class, 'index']);
+    $routes->post('user/update-profile', [User::class, 'updateProfile']);
+    $routes->post('user/change-password', [User::class, 'changePassword']);
+});
 
 // Routes Pelabuhan
 $routes->get('/pelabuhan', 'PelabuhanController::index');
@@ -70,6 +79,9 @@ $routes->match(['get', 'post'], 'report-bulanan', 'CuacaController::reportBulana
 $routes->get('/login', 'AuthController::login');
 $routes->post('/auth', 'AuthController::check');
 $routes->get('/logout', 'AuthController::logout');
+// Pastikan alias 'alreadyLogged' dipasang pada route login
+$routes->get('login', 'AuthController::index', ['filter' => 'alreadyLoggedIn']);
+$routes->post('login', 'AuthController::login', ['filter' => 'alreadyLoggedIn']);
 
 //Routes Register
 $routes->get('/register', 'AuthController::register');
@@ -83,6 +95,20 @@ $routes->group('', ['filter' => 'Role'], function ($routes) {
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/user/edit/(:num)', 'Admin::edit/$1');
 $routes->put('/admin/user/update/(:num)', 'Admin::update/$1');
+
+$routes->get('ports', 'PortController::index');
+$routes->get('ports/sync', 'PortController::sync');
+
+$routes->get('ports/weather/sync-all', 'PortController::syncAllWeather');
+$routes->get('ports/weather/sync/(:segment)', 'PortController::syncWeather/$1');
+
+$routes->get('ports/weather/show/(:segment)', 'PortController::showWeather/$1');
+
+$routes->get('ports/weather/export-excel/(:segment)', 'PortController::exportWeatherExcel/$1');
+$routes->get('ports/weather/export-pdf/(:segment)', 'PortController::exportWeatherPdf/$1');
+
+$routes->post('ports/toggle-monitored', 'PortController::toggleMonitored');
+$routes->post('ports/weather/sync-selected', 'PortController::syncSelected');
 
 $routes->get('create-db', function () {
     $forge = \Config\Database::forge();
