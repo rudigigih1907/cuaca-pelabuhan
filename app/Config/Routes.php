@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\DashboardController;
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -73,6 +74,10 @@ $routes->get('/logout', 'AuthController::logout');
 //Routes Register
 $routes->get('/register', 'AuthController::register');
 $routes->post('/register', 'AuthController::create');
+
+$routes->group('', ['filter' => 'Role'], function ($routes) {
+    $routes->get('dashboard', [DashboardController::class, 'index']);
+});
 
 // Routes Admin
 $routes->get('/admin', 'Admin::index');
