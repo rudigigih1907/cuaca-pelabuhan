@@ -10,6 +10,8 @@ use Dompdf\Dompdf;
 
 class CuacaController extends BaseController
 {
+    protected $pelabuhan;
+    protected $cuaca;
     public function __construct()
     {
         $this->pelabuhan = new PelabuhanModel();
