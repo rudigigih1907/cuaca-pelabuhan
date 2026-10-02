@@ -43,21 +43,27 @@
             <form action="<?= site_url('ports/weather/sync-selected') ?>" method="POST">
                 <?= csrf_field() ?>
 
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-cloud-arrow-down"></i> Sync Pelabuhan Terpilih
-                    </button>
-                </div>
+                <?php if (userLogin() && userLogin()->role == 'Admin') : ?>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-cloud-arrow-down"></i> Sync Pelabuhan Terpilih
+                        </button>
+                    </div>
+                <?php endif ?>
 
                 <table class="table table-bordered text-nowrap" id="datatablesSimple" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th><input type="checkbox" id="checkAll"></th>
+                            <?php if (userLogin() && userLogin()->role == 'Admin') : ?>
+                                <th><input type="checkbox" id="checkAll"></th>
+                            <?php endif ?>
                             <th>Kode Pelabuhan</th>
                             <th>Nama Pelabuhan</th>
                             <th>Provinsi</th>
-                            <th class="text-center" style="width: 140px;">Pantau (3 Jam)</th>
+                            <?php if (userLogin() && userLogin()->role == 'Admin') : ?>
+                                <th class="text-center" style="width: 140px;">Pantau (3 Jam)</th>
+                            <?php endif ?>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -66,21 +72,25 @@
                             <?php foreach ($ports as $index => $port): ?>
                                 <tr>
                                     <td><?= $index + 1 ?></td>
-                                    <td><input type="checkbox" name="codes[]" value="<?= esc($port['code']) ?>"></td>
+                                    <?php if (userLogin() && userLogin()->role == 'Admin') : ?>
+                                        <td><input type="checkbox" name="codes[]" value="<?= esc($port['code']) ?>"></td>
+                                    <?php endif ?>
                                     <td><code><?= esc($port['code']) ?></code></td>
                                     <td><?= esc($port['name']) ?></td>
                                     <td><?= esc($port['province']) ?></td>
-                                    <td class="text-center">
-                                        <!-- Bootstrap Toggle Switch -->
-                                        <div class="form-check form-switch d-inline-block">
-                                            <input class="form-check-input toggle-monitored"
-                                                type="checkbox"
-                                                role="switch"
-                                                data-code="<?= esc($port['code']) ?>"
-                                                id="switch_<?= esc($port['code']) ?>"
-                                                <?= !empty($port['is_monitored']) ? 'checked' : '' ?>>
-                                        </div>
-                                    </td>
+                                    <?php if (userLogin() && userLogin()->role == 'Admin') : ?>
+                                        <td class="text-center">
+                                            <!-- Bootstrap Toggle Switch -->
+                                            <div class="form-check form-switch d-inline-block">
+                                                <input class="form-check-input toggle-monitored"
+                                                    type="checkbox"
+                                                    role="switch"
+                                                    data-code="<?= esc($port['code']) ?>"
+                                                    id="switch_<?= esc($port['code']) ?>"
+                                                    <?= !empty($port['is_monitored']) ? 'checked' : '' ?>>
+                                            </div>
+                                        </td>
+                                    <?php endif ?>
                                     <td>
                                         <a href="<?= site_url('ports/weather/sync/' . $port['code']) ?>" class="btn btn-sm btn-info text-white">
                                             Sync Cuaca

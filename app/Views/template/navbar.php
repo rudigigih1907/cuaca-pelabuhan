@@ -1,7 +1,8 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
+    
     <a class="navbar-brand fw-bold" href="<?= site_url('/ports') ?>">
-        <i class="bi bi-cloud-sun me-1"></i>
+        <i class="fas fa-cloud-sun-rain"></i>
         <?= esc(ucwords(str_replace('-', ' ', env('APP_NAME', 'cuaca-pelabuhan')))) ?>
     </a>
     <!-- Sidebar Toggle-->
@@ -15,7 +16,12 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Dashboard</a></li>
+                <?php if (userLogin() && userLogin()->role == 'Admin') : ?>
+                    <li><a class="dropdown-item" href="<?= site_url('/dashboard') ?>">Dashboard</a></li>
+                <?php else : ?>
+                    <li><a class="dropdown-item" href="<?= site_url('/') ?>">Profil Saya</a></li>
+                <?php endif ?>
+                
                 <li></li>
                 <li>
                     <hr class="dropdown-divider" />
