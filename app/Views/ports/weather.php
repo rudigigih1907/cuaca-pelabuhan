@@ -1,4 +1,7 @@
 <?= $this->extend('template/index'); ?>
+<?= $this->Section('title') ?>
+<title><?= $title; ?></title>
+<?= $this->endSection() ?>
 <?= $this->Section('content') ?>
 <style>
     .weather-card {

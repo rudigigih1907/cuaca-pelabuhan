@@ -25,7 +25,7 @@ class PortController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Data Pelabuhan BMKG',
+            'title' => 'Daftar Pelabuhan',
             'ports' => $this->portModel->findAll(),
         ];
 
@@ -78,7 +78,7 @@ class PortController extends BaseController
             'startDate'   => $startDate ?? '',
             'endDate'     => $endDate ?? '',
             'breadcrumbs' => [
-                'Daftar Pelabuhan'                    => site_url('ports'),
+                'Daftar Pelabuhan' => site_url('ports'),
                 'Laporan Cuaca ' . esc($port['name']) => '',
             ],
         ];
