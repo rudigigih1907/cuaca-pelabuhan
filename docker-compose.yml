@@ -55,6 +55,24 @@ services:
     networks:
       - ci4_network
 
+  # Service Scheduler Ofelia
+  scheduler:
+    image: mcuadros/ofelia:0.3.22
+    container_name: ${APP_NAME}-scheduler
+    restart: unless-stopped
+    depends_on:
+      - app
+    environment:
+      - TZ=Asia/Jakarta
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./scheduler/config.ini:/etc/scheduler/config.ini:ro
+    command: daemon --config=/etc/scheduler/config.ini
+    networks:
+      - ci4_network
+
 networks:
   ci4_network:
     driver: bridge
