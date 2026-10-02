@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Addons</div>
+                <div class="sb-sidenav-menu-heading">Menu</div>
                 <a class="nav-link" href="<?= base_url('/ports') ?>">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     Pelabuhan
