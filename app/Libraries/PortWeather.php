@@ -7,7 +7,7 @@ use App\Models\PortWeatherModel;
 use Config\Database;
 use Config\Services;
 
-class PortWeatherService
+class PortWeather
 {
     protected PortModel $portModel;
     protected PortWeatherModel $weatherModel;

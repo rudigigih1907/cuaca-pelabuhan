@@ -2,7 +2,7 @@
 
 namespace App\Commands;
 
-use App\Libraries\PortWeatherService;
+use App\Libraries\PortWeather;
 use App\Models\PortModel;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
@@ -65,7 +65,7 @@ class SyncWeatherCommand extends BaseCommand
         set_time_limit(0);
 
         $portModel      = new PortModel();
-        $weatherService = new PortWeatherService();
+        $weatherService = new PortWeather();
 
         // 1. Tangkap opsi CLI
         $inputCodes = CLI::getOption('codes');

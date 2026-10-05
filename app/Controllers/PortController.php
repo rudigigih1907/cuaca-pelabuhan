@@ -4,21 +4,21 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PortModel;
-use App\Libraries\PortWeatherService;
-use App\Libraries\WeatherExportService;
+use App\Libraries\PortWeather;
+use App\Libraries\WeatherExport;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class PortController extends BaseController
 {
     protected PortModel $portModel;
-    protected PortWeatherService $weatherService;
-    protected WeatherExportService $exportService;
+    protected PortWeather $weatherService;
+    protected WeatherExport $exportService;
 
     public function __construct()
     {
         $this->portModel      = new PortModel();
-        $this->weatherService = new PortWeatherService();
-        $this->exportService  = new WeatherExportService();
+        $this->weatherService = new PortWeather();
+        $this->exportService  = new WeatherExport();
         helper('breadcrumb');
     }
 
