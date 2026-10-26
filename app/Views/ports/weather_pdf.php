@@ -72,9 +72,19 @@
 
 <body>
 
+    <?php
+    $province = $port['province'] ?? null;
+    $tzInfo   = get_province_timezone($province);
+    ?>
+
     <div class="header">
         <h2>Laporan Prakiraan Cuaca Pelabuhan</h2>
-        <p><strong>Nama Pelabuhan:</strong> <?= esc($port['name'] ?? $port['code']) ?> (Kode: <?= esc($port['code']) ?>)</p>
+        <p>
+            <strong>Nama Pelabuhan:</strong> <?= esc($port['name'] ?? $port['code']) ?> (Kode: <?= esc($port['code']) ?>)
+            <?php if (!empty($province)): ?>
+                | <strong>Wilayah:</strong> <?= esc($province) ?> (<?= esc($tzInfo['label']) ?> / <?= esc($tzInfo['utc']) ?>)
+            <?php endif; ?>
+        </p>
         <p><strong>Periode:</strong> <?= !empty($startDate) ? $startDate : 'Awal' ?> s/d <?= !empty($endDate) ? $endDate : 'Akhir' ?></p>
     </div>
 
@@ -82,15 +92,15 @@
         <thead>
             <tr>
                 <th width="4%">No</th>
-                <th width="12%">Waktu (UTC)</th>
+                <th width="14%">Waktu (<?= esc($tzInfo['label']) ?>)</th>
                 <th width="10%">Cuaca</th>
                 <th width="7%">Suhu (°C)</th>
                 <th width="7%">RH (%)</th>
                 <th width="8%">Vis. (NM)</th>
-                <th width="10%">Arah Angin</th>
+                <th width="9%">Arah Angin</th>
                 <th width="9%">Kept. Angin</th>
                 <th width="9%">Gelombang</th>
-                <th width="12%">Kat. Gelombang</th>
+                <th width="11%">Kat. Gelombang</th>
                 <th width="12%">Arus</th>
             </tr>
         </thead>
@@ -99,7 +109,9 @@
             foreach ($weathers as $w) : ?>
                 <tr>
                     <td class="text-center"><?= $no++ ?></td>
-                    <td class="text-center"><?= date('d/m/Y H:i', strtotime($w['forecast_time'])) ?></td>
+                    <td class="text-center">
+                        <?= format_local_weather_time($w['forecast_time'], $province, 'd/m/Y H:i') ?>
+                    </td>
                     <td><?= ucfirst(esc($w['weather'] ?? '-')) ?></td>
                     <td class="text-center"><?= esc($w['temp_avg'] ?? '-') ?></td>
                     <td class="text-center"><?= esc($w['rh_avg'] ?? '-') ?></td>
@@ -117,7 +129,10 @@
     </table>
 
     <div class="footer">
-        Dicetak pada: <?= date('d-m-Y H:i:s') ?> WIB | Sumber Data: BMKG
+        <?php
+        $now = new \DateTime('now', new \DateTimeZone($tzInfo['timezone']));
+        ?>
+        Dicetak pada: <?= $now->format('d-m-Y H:i:s') ?> <?= esc($tzInfo['label']) ?> | Sumber Data:<a href="https://maritim.bmkg.go.id/apidoc"> BMKG</a>
     </div>
 
 </body>

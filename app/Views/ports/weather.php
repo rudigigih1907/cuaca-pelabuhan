@@ -28,7 +28,13 @@
                     <i class="bi bi-geo-alt-fill text-danger me-1"></i>
                     <?= esc($port['name'] ?? $port['code']) ?>
                 </h2>
-                <p class="text-muted mb-0">Kode Pelabuhan: <span class="badge bg-secondary"><?= esc($port['code']) ?></span></p>
+                <?php $portTz = get_province_timezone($port['province'] ?? null); ?>
+                <p class="text-muted mb-0">
+                    Kode Pelabuhan: <span class="badge bg-secondary"><?= esc($port['code']) ?></span>
+                    <?php if (!empty($port['province'])): ?>
+                        <span class="ms-1">| Wilayah: <strong><?= esc($port['province']) ?></strong> (<?= esc($portTz['label']) ?> / <?= esc($portTz['utc']) ?>)</span>
+                    <?php endif; ?>
+                </p>
             </div>
             <div>
                 <a href="<?= site_url('ports/weather/sync/' . $port['code']) ?>" class="btn btn-primary">
@@ -111,14 +117,14 @@
                     <div class="col">
                         <div class="card h-100 shadow-sm weather-card">
 
-                            <!-- Header Card -->
+                            <!-- Header Card: Disesuaikan dengan Zona Waktu Provinsi (UTC+7 / UTC+8 / UTC+9) -->
                             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-3">
                                 <span class="fw-bold">
                                     <i class="bi bi-calendar-event me-1"></i>
-                                    <?= date('d M Y - H:i', strtotime($w['forecast_time'])) ?> UTC
+                                    <?= format_local_weather_time($w['forecast_time'], $port['province'] ?? null, 'd M Y - H:i') ?>
                                 </span>
-                                <span class="badge bg-light text-primary fw-semibold">
-                                    <?= date('H:i', strtotime($w['forecast_time'])) ?>
+                                <span class="badge bg-light text-primary fw-semibold" title="Waktu UTC Asli: <?= date('H:i', strtotime($w['forecast_time'])) ?> UTC">
+                                    <?= format_local_hour_only($w['forecast_time'], $port['province'] ?? null) ?>
                                 </span>
                             </div>
 
