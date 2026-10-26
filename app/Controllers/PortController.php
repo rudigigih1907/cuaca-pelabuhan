@@ -146,7 +146,10 @@ class PortController extends BaseController
             return redirect()->back()->with('error', 'Tidak ada data cuaca untuk diekspor.');
         }
 
-        $this->exportService->exportExcel($port, $weathers, $startDate, $endDate);
+        $portArray    = is_object($port) ? (array) $port : $port;
+        $weathersArray = array_map(fn($item) => is_object($item) ? (array) $item : $item, $weathers);
+
+        $this->exportService->exportExcel($portArray, $weathersArray, $startDate, $endDate);
     }
 
     public function exportWeatherPdf(string $code)

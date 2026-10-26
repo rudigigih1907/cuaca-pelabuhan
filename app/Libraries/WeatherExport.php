@@ -19,6 +19,10 @@ class WeatherExport
     {
         $code     = $port['code'];
         $portName = $port['name'] ?? $code;
+        $province = $port['province'] ?? null;
+
+        // Dapatkan data zona waktu dari helper
+        $tzInfo = get_province_timezone($province);
 
         $spreadsheet = new Spreadsheet();
         $sheet       = $spreadsheet->getActiveSheet();
@@ -30,14 +34,15 @@ class WeatherExport
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        $periodText = 'Periode: ' . (!empty($startDate) ? $startDate : 'Awal') . ' s/d ' . (!empty($endDate) ? $endDate : 'Akhir');
+        $regionInfo = !empty($province) ? "Wilayah: {$province} ({$tzInfo['label']} / {$tzInfo['utc']}) | " : '';
+        $periodText = $regionInfo . 'Periode: ' . (!empty($startDate) ? $startDate : 'Awal') . ' s/d ' . (!empty($endDate) ? $endDate : 'Akhir');
         $sheet->setCellValue('A2', $periodText);
         $sheet->mergeCells('A2:L2');
         $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         $headers = [
             'No',
-            'Waktu (UTC)',
+            'Waktu (' . $tzInfo['label'] . ')',
             'Cuaca',
             'Suhu (°C)',
             'Kelembapan (%)',
@@ -74,8 +79,10 @@ class WeatherExport
         $row = 5;
         $no  = 1;
         foreach ($weathers as $w) {
+            // Konversi forecast_time (UTC) ke waktu lokal provinsi
+            $localTime = format_local_weather_time($w['forecast_time'], $province, 'd-m-Y H:i');
             $sheet->setCellValue('A' . $row, $no++);
-            $sheet->setCellValue('B' . $row, date('d-m-Y H:i', strtotime($w['forecast_time'])));
+            $sheet->setCellValue('B' . $row, $localTime);
             $sheet->setCellValue('C' . $row, ucfirst($w['weather'] ?? '-'));
             $sheet->setCellValue('D' . $row, $w['temp_avg'] ?? '-');
             $sheet->setCellValue('E' . $row, $w['rh_avg'] ?? '-');
