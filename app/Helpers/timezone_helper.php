@@ -87,20 +87,19 @@ if (!function_exists('format_local_weather_time')) {
      * @param string $format
      * @return string
      */
-    function format_local_weather_time(?string $utcTime, ?string $province, string $format = 'd M Y - H:i'): string
+    function format_local_weather_time(?string $localTime, ?string $province, string $format = 'd M Y - H:i'): string
     {
-        if (empty($utcTime)) {
+        if (empty($localTime)) {
             return '-';
         }
 
         $tzInfo = get_province_timezone($province);
 
         try {
-            $dt = new \DateTime($utcTime, new \DateTimeZone('UTC'));
-            $dt->setTimezone(new \DateTimeZone($tzInfo['timezone']));
+            $dt = new \DateTime($localTime);
             return $dt->format($format) . ' ' . $tzInfo['label'];
         } catch (\Throwable $e) {
-            return date($format, strtotime($utcTime));
+            return date($format, strtotime($localTime)) . ' ' . $tzInfo['label'];
         }
     }
 }
@@ -109,20 +108,19 @@ if (!function_exists('format_local_hour_only')) {
     /**
      * Mengonversi waktu forecast UTC ke jam lokal saja
      */
-    function format_local_hour_only(?string $utcTime, ?string $province): string
+    function format_local_hour_only(?string $localTime, ?string $province): string
     {
-        if (empty($utcTime)) {
+        if (empty($localTime)) {
             return '-';
         }
 
         $tzInfo = get_province_timezone($province);
 
         try {
-            $dt = new \DateTime($utcTime, new \DateTimeZone('UTC'));
-            $dt->setTimezone(new \DateTimeZone($tzInfo['timezone']));
+            $dt = new \DateTime($localTime);
             return $dt->format('H:i') . ' ' . $tzInfo['label'];
         } catch (\Throwable $e) {
-            return date('H:i', strtotime($utcTime));
+            return date('H:i', strtotime($localTime)) . ' ' . $tzInfo['label'];
         }
     }
 }

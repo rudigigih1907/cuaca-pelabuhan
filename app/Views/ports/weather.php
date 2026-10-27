@@ -117,14 +117,13 @@
                     <div class="col">
                         <div class="card h-100 shadow-sm weather-card">
 
-                            <!-- Header Card: Disesuaikan dengan Zona Waktu Provinsi (UTC+7 / UTC+8 / UTC+9) -->
                             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-3">
                                 <span class="fw-bold">
                                     <i class="bi bi-calendar-event me-1"></i>
-                                    <?= format_local_weather_time($w['forecast_time'], $port['province'] ?? null, 'd M Y - H:i') ?>
+                                    <?= date('d M Y', strtotime($w['forecast_time'])) ?>
                                 </span>
-                                <span class="badge bg-light text-primary fw-semibold" title="Waktu UTC Asli: <?= date('H:i', strtotime($w['forecast_time'])) ?> UTC">
-                                    <?= format_local_hour_only($w['forecast_time'], $port['province'] ?? null) ?>
+                                <span class="badge bg-light text-primary fw-semibold">
+                                    <?= date('H:i', strtotime($w['forecast_time'])) ?>
                                 </span>
                             </div>
 

@@ -175,7 +175,7 @@ class PortWeather
         }
 
         if (empty($startDate) && empty($endDate)) {
-            $builder->where('forecast_time >=', date('Y-m-d H:i:s'));
+            $builder->where('forecast_time >=', date('Y-m-d 00:00:00'));
         }
 
         $weathers = $builder->orderBy('forecast_time', 'ASC')->findAll();
@@ -184,7 +184,7 @@ class PortWeather
         if (empty($weathers) && empty($startDate) && empty($endDate)) {
             $weathers = $this->weatherModel
                 ->where('port_code', $code)
-                ->orderBy('forecast_time', 'DESC')
+                ->orderBy('forecast_time', 'ASC')
                 ->findAll();
         }
 

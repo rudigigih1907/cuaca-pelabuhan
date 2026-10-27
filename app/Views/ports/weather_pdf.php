@@ -110,7 +110,7 @@
                 <tr>
                     <td class="text-center"><?= $no++ ?></td>
                     <td class="text-center">
-                        <?= format_local_weather_time($w['forecast_time'], $province, 'd/m/Y H:i') ?>
+                        <?= date('d M Y - H:i', strtotime($w['forecast_time'])) ?>
                     </td>
                     <td><?= ucfirst(esc($w['weather'] ?? '-')) ?></td>
                     <td class="text-center"><?= esc($w['temp_avg'] ?? '-') ?></td>
