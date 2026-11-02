@@ -140,7 +140,7 @@
         <?php
         $now = new \DateTime('now', new \DateTimeZone($tzInfo['timezone']));
         ?>
-        Dicetak pada: <?= $now->format('d-m-Y H:i:s') ?> <?= esc($tzInfo['label']) ?> | Sumber Data:<a href="https://maritim.bmkg.go.id/apidoc"> BMKG</a>
+        Dicetak pada: <?= $now->format('d-m-Y H:i:s') ?> <?= esc($tzInfo['label']) ?> | Sumber Data:<a href="https://maritim.bmkg.go.id/apidoc"> BMKG</a> | <a href="https://maritim.bmkg.go.id/marine2026-data/pelabuhan/">Cuaca Pelabuhan Indonesia</a>
     </div>
 
 </body>
