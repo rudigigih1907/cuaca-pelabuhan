@@ -23,8 +23,15 @@
         .header h2 {
             margin: 0 0 5px 0;
             text-transform: uppercase;
-            color: #0d6efd;
+            color: #000000;
             font-size: 16pt;
+        }
+
+        .header h1 {
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            color: #000000;
+            font-size: 18pt;
         }
 
         .header p {
@@ -78,6 +85,7 @@
     ?>
 
     <div class="header">
+        <h1>PT. PELAYARAN TERSNAMUDA SEJATI</h1>
         <h2>Laporan Prakiraan Cuaca Pelabuhan</h2>
         <p>
             <strong>Nama Pelabuhan:</strong> <?= esc($port['name'] ?? $port['code']) ?> (Kode: <?= esc($port['code']) ?>)
@@ -95,10 +103,10 @@
                 <th width="14%">Waktu (<?= esc($tzInfo['label']) ?>)</th>
                 <th width="10%">Cuaca</th>
                 <th width="7%">Suhu (°C)</th>
-                <th width="7%">RH (%)</th>
-                <th width="8%">Vis. (NM)</th>
+                <th width="7%">Kelembapan relatif (%)</th>
+                <th width="8%">Visibilitas (km)</th>
                 <th width="9%">Arah Angin</th>
-                <th width="9%">Kept. Angin</th>
+                <th width="9%">Kecepatan Angin</th>
                 <th width="9%">Gelombang</th>
                 <th width="11%">Kat. Gelombang</th>
                 <th width="12%">Arus</th>
@@ -117,11 +125,11 @@
                     <td class="text-center"><?= esc($w['rh_avg'] ?? '-') ?></td>
                     <td class="text-center"><?= esc($w['visibility'] ?? '-') ?></td>
                     <td class="text-center"><?= esc($w['wind_from'] ?? '-') ?></td>
-                    <td class="text-center"><?= esc($w['wind_speed'] ?? 0) ?> Kt</td>
-                    <td class="text-center"><?= esc($w['wave_height'] ?? 0) ?> m</td>
+                    <td class="text-center"><?= esc($w['wind_speed'] ?? 0) ?> Knot</td>
+                    <td class="text-center"><?= esc($w['wave_height'] ?? 0) ?> meter</td>
                     <td class="text-center"><?= esc($w['wave_cat'] ?? '-') ?></td>
                     <td class="text-center">
-                        <?= esc($w['current_to'] ?? '-') ?> / <?= esc($w['current_speed'] ?? 0) ?> Kt
+                        <?= esc($w['current_to'] ?? '-') ?> / <?= esc($w['current_speed'] ?? 0) ?> Knot
                     </td>
                 </tr>
             <?php endforeach; ?>
