@@ -104,7 +104,14 @@ class PortWeather
             return 0;
         }
 
-        // Deduplikasi waktu BMKG di memori PHP untuk mencegah duplicate key entry
+        // Ambil provinsi pelabuhan untuk menentukan zona waktu lokal (WIB/WITA/WIT)
+        helper('timezone');
+        $port     = $this->portModel->where('code', $code)->first();
+        $portArr  = $port ? (is_object($port) ? (array)$port : $port) : null;
+        $province = $portArr['province'] ?? null;
+        $tzInfo   = get_province_timezone($province);
+
+        // Deduplikasi waktu BMKG di memori PHP
         $uniqueForecasts = [];
         foreach ($allForecasts as $item) {
             $rawTime = $item['time'] ?? '';
@@ -112,8 +119,17 @@ class PortWeather
                 continue;
             }
 
-            $cleanTime     = str_replace(' UTC', '', $rawTime);
-            $formattedTime = date('Y-m-d H:i:s', strtotime($cleanTime));
+            $cleanTime = str_replace(' UTC', '', $rawTime);
+
+            try {
+                // Konversi dari sumber UTC ke zona waktu lokal pelabuhan (WIB/WITA/WIT)
+                $dt = new \DateTime($cleanTime, new \DateTimeZone('UTC'));
+                $dt->setTimezone(new \DateTimeZone($tzInfo['timezone']));
+                $formattedTime = $dt->format('Y-m-d H:i:s');
+            } catch (\Throwable $e) {
+                $formattedTime = date('Y-m-d H:i:s', strtotime($cleanTime));
+            }
+
             $uniqueForecasts[$formattedTime] = $item;
         }
 
@@ -136,7 +152,7 @@ class PortWeather
         foreach ($uniqueForecasts as $formattedTime => $item) {
             $this->db->query($sql, [
                 $code,
-                $formattedTime,
+                $formattedTime, // Sudah menjadi waktu lokal (WIB/WITA/WIT)
                 $item['weather'] ?? null,
                 isset($item['visibility']) ? (int) $item['visibility'] : null,
                 isset($item['temp_avg']) ? (float) $item['temp_avg'] : null,

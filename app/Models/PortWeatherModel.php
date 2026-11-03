@@ -68,38 +68,44 @@ class PortWeatherModel extends Model
      */
     protected function convertForecastTimeToLocal(array $data): array
     {
-        if (empty($data['data']) || !is_array($data['data'])) {
-            return $data;
-        }
-
-        // Jika tidak ada forecast_time yang diubah/dimasukkan, lewati
-        if (!isset($data['data']['forecast_time']) || empty($data['data']['forecast_time'])) {
+        if (empty($data['data'])) {
             return $data;
         }
 
         helper('timezone');
 
-        // Dapatkan kode pelabuhan
-        $portCode = $data['data']['port_code'] ?? null;
+        // Tangani data tunggal atau batch insert/update
+        $rows = isset($data['data'][0]) ? $data['data'] : [$data['data']];
 
-        // Jika update tidak menyertakan port_code, ambil dari record database berdasarkan primary key
-        if (empty($portCode) && !empty($data['id'])) {
-            $existing = $this->select('port_code')->find(is_array($data['id']) ? $data['id'][0] : $data['id']);
-            $portCode = is_array($existing) ? ($existing['port_code'] ?? null) : ($existing->port_code ?? null);
-        }
+        foreach ($rows as $index => $row) {
+            if (empty($row['forecast_time'])) {
+                continue;
+            }
 
-        if (!empty($portCode)) {
-            $province = $this->getPortProvince($portCode);
-            $tzInfo   = get_province_timezone($province);
+            $portCode = $row['port_code'] ?? null;
+            if (empty($portCode) && !empty($data['id'])) {
+                $existing = $this->select('port_code')->find(is_array($data['id']) ? $data['id'][0] : $data['id']);
+                $portCode = is_array($existing) ? ($existing['port_code'] ?? null) : ($existing->port_code ?? null);
+            }
 
-            try {
-                // Sumber data BMKG adalah UTC, dikonversi ke zona target (Asia/Jakarta, Asia/Makassar, Asia/Jayapura)
-                $dt = new \DateTime($data['data']['forecast_time'], new \DateTimeZone('UTC'));
-                $dt->setTimezone(new \DateTimeZone($tzInfo['timezone']));
+            if (!empty($portCode)) {
+                $province = $this->getPortProvince($portCode);
+                $tzInfo   = get_province_timezone($province);
 
-                $data['data']['forecast_time'] = $dt->format('Y-m-d H:i:s');
-            } catch (\Throwable $e) {
-                log_message('error', 'Gagal konversi timezone forecast_time: ' . $e->getMessage());
+                try {
+                    $dt = new \DateTime($row['forecast_time'], new \DateTimeZone('UTC'));
+                    $dt->setTimezone(new \DateTimeZone($tzInfo['timezone']));
+                    
+                    $convertedTime = $dt->format('Y-m-d H:i:s');
+
+                    if (isset($data['data'][0])) {
+                        $data['data'][$index]['forecast_time'] = $convertedTime;
+                    } else {
+                        $data['data']['forecast_time'] = $convertedTime;
+                    }
+                } catch (\Throwable $e) {
+                    log_message('error', 'Gagal konversi timezone model: ' . $e->getMessage());
+                }
             }
         }
 
